@@ -1,0 +1,22 @@
+{
+  "name": "bittorent-client-nodejs",
+  "version": "1.0.0",
+  "description": "A bittorent client made while following a tutorial in order to understand the working of a torrent",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tanmay-j/bittorent-client-nodejs.git"
+  },
+  "author": "Tanmay Jain",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/tanmay-j/bittorent-client-nodejs/issues"
+  },
+  "homepage": "https://github.com/tanmay-j/bittorent-client-nodejs#readme",
+  "dependencies": {
+    "bencode": "^2.0.3"
+  }
+}
