@@ -1,6 +1,7 @@
 'use strict';
 
 const dgram = require('dgram');
+const crypto = require('crypto');
 const Buffer = require('buffer').Buffer
 const urlParse = require('url').parse
 const torrentParser = require('./torrent-parser');
@@ -33,9 +34,29 @@ module.exports.getPeers = (torrent, callback) => {
     });
 }
 
+function respType(resp) {
+    const action = resp.readUInt32BE(0);
+    if(action === 0) return 'connect';
+    if(action === 1) return 'announce';
+}
+
 function udpSend(socket, message, rawUrl, callback = () => {}) {
     const url = urlParse(rawUrl);
     socket.send(message,0, message.length, url.port, url.host, callback);
+}
+
+function buildConnReq() {
+    const buf = Buffer.alloc(16);
+
+    // connectionId
+    buf.writeUInt32BE(0x417,0); 
+    buf.writeUInt32BE(0x27101980,4)
+    // action 
+    buf.writeUInt32BE(0,8);
+    // transactionId
+    crypto.randomBytes(4).copy(buf,12);
+
+    return buf;
 }
 
 function parseConnResp(resp){
